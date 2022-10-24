@@ -18,15 +18,24 @@
 	  <h:panelGrid id="grid" columns="3" cellpadding="7">
   		
   		 <p:outputLabel for="kwota" value="Podaj kwote kredytu"/>
-  		<p:inputText id="kwota" value="#{calcBB.kwota}" required="true" requiredMessage="Brak kwoty"/>
+  		<p:inputText id="kwota" value="#{calcBB.kwota}" required="true" requiredMessage="Brak kwoty" validatorMessage="Kwota z przedziału 100-1000000" converterMessage="Niepoprawna wartość!">
+  		<f:convertNumber maxFractionDigits="0"/>
+  		<f:validateDoubleRange minimum="100" maximum="1000000"/>
+  		</p:inputText>
   		<p:message for="kwota"/>
   		
   		<p:outputLabel for="okres" value="Podaj liczbe miesiecy splacania kredytu"/>
-		<p:inputText id="okres" value="#{calcBB.okres}" required="true" requiredMessage="Brak liczby miesiecy"/>
+		<p:inputText id="okres" value="#{calcBB.okres}" required="true" requiredMessage="Miesiące z przedziału 1-120" validatorMessage="Liczba miesięcy z przedziału 1-120" converterMessage="Kredyt tylko na maksymalnie 10 lat!">
+		<f:convertNumber maxFractionDigits="0"/>
+  		<f:validateDoubleRange minimum="1" maximum="120"/>
+  		</p:inputText>
 		<p:message for="okres"/>
 		
 		<p:outputLabel for="oprocentowanie" value="Podaj oprocentowanie"/>
-		<p:inputText id="oprocentowanie" value="#{calcBB.oprocentowanie}" required="true" requiredMessage="Brak oprocentowania"/>
+		<p:inputText id="oprocentowanie" value="#{calcBB.oprocentowanie}" required="true" requiredMessage="Brak oprocentowania" validatorMessage="Oprocentowanie z przedziału 0.01-10%" converterMessage="Oprocentowanie maksymalnie 10%!">
+		<f:convertNumber maxFractionDigits="0"/>
+  		<f:validateDoubleRange minimum="0.01" maximum="10"/>
+  		</p:inputText>
 		<p:message for="oprocentowanie"/>
 	
 		<p:commandButton value="Oblicz rate kredytu" action="#{calcBB.calc()}" update="@form"/>
